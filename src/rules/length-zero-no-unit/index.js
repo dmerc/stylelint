@@ -23,8 +23,8 @@ export const messages = ruleMessages(ruleName, {
 
 export default function (actual) {
   return (root, result) => {
-    const validOptions = validateOptions(result, ruleName, { actual })
-    if (!validOptions) { return }
+    const validOptions = validateOptions(result, ruleName, { actual, possible: [true, false] })
+    if (!validOptions || actual === false) { return }
 
     root.walkDecls(decl => {
       check(blurComments(decl.toString()), decl)
